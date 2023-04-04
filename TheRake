@@ -1,0 +1,124 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
+local AppearanceGUI = Library:NewWindow("Game appearance")
+local plr = game:GetService("Players").LocalPlayer
+local Brightness = AppearanceGUI:NewSection("Brightness")
+local Esp = AppearanceGUI:NewSection("Esp")
+local Flaslg = Library:NewWindow("Flashlight")
+local FlashlightMods = Flaslg:NewSection("Mods")
+local States = {
+	NoFog = false,
+	Bright = false,
+	EspPlayer = false,
+	EspRake = false,
+	IsRunning = false,
+	InfSprint = false,
+	Speed = 0,
+}
+local Players = Instance.new("Model",workspace)
+local ESP_PLAYER = Instance.new("Highlight",Players)
+ESP_PLAYER.OutlineColor = Color3.new(0, 1, 0.117647)
+ESP_PLAYER.FillColor = Color3.new(0.129412, 0.701961, 0)
+
+do--Brightness
+	Brightness:CreateToggle("No fog", function(value)
+		States.NoFog = not States.NoFog
+		game:GetService("Lighting").FogEnd = 1
+	end)
+	Brightness:CreateToggle("Bright", function(value)
+		States.Bright = not States.Bright
+		game:GetService("Lighting").FogEnd = 1
+	end)
+end
+do--Esp
+	Esp:CreateToggle("Player ESP", function(value)
+		States.EspPlayer = not States.EspPlayer
+		ESP_PLAYER.Enabled = States.EspPlayer
+	end)
+	Esp:CreateToggle("Rake ESP", function(value)
+		States.EspRake = not States.EspRake
+		if not States.EspRake then
+			if game:GetService("Workspace"):FindFirstChild("Rake") and game:GetService("Workspace"):FindFirstChild("Rake"):FindFirstChildOfClass("Highlight") then
+				game:GetService("Workspace"):FindFirstChild("Rake"):FindFirstChildOfClass("Highlight"):Destroy()
+			end
+		end
+	end)
+end
+task.spawn(function()
+	local RakeESPf = nil
+	RakeESPf = function()
+		repeat task.wait() until game:GetService("Workspace"):FindFirstChild("Rake") and States.EspRake
+		local ESP_RAKE = Instance.new("Highlight",game:GetService("Workspace").Rake)
+		ESP_RAKE.OutlineColor = Color3.new(1, 0, 0)
+		repeat task.wait() until not ESP_RAKE or ESP_RAKE.Parent == nil and game:GetService("Workspace"):FindFirstChild("Rake")
+		RakeESPf()
+	end
+	RakeESPf()
+end)
+game:GetService("Lighting").Changed:Connect(function()
+	if States.NoFog then
+		game:GetService("Lighting").FogEnd = 999999999999999999
+	end
+	if States.Bright then
+		game:GetService("Lighting").Brightness = 20
+	end
+end)
+repeat task.wait() until game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid").Changed:Connect(function()
+	if States.IsRunning and States.InfSprint and States.Speed == 0 or States.Speed == 14 then
+		plr.Character:FindFirstChildOfClass("Humanoid").WalkSpeed = 24
+	end
+	if States.Speed ~=0 then
+		plr.Character:FindFirstChildOfClass("Humanoid").WalkSpeed = States.Speed
+	end
+end)
+
+task.spawn(function()
+	while wait() do
+		repeat task.wait() until States.EspPlayer
+		for i,v in pairs(workspace:GetChildren()) do
+			if v and v~= plr.Character and v:FindFirstChildOfClass("Humanoid") and States.EspPlayer and game:GetService("Players"):FindFirstChild(v.Name) and not Players:FindFirstChild(v.Name) then
+				v.Parent = ESP_PLAYER
+			end
+		end
+	end
+end)
+local Gameplay = Library:NewWindow("Gameplay")
+local GameFunctions = Gameplay:NewSection("Character")
+do
+	--//Game functions
+	GameFunctions:CreateToggle("Inf stamina", function(value)
+		States.InfSprint = not States.InfSprint
+	end)
+	GameFunctions:CreateSlider("Set speed", 14, 100, 15, false, function(value)
+		States.Speed = value or 1
+	end)
+end
+
+local UserInputService = game:GetService("UserInputService")
+local function onInputBegan(input, _gameProcessed)
+	if input.KeyCode == Enum.KeyCode.LeftShift then
+		States.IsRunning = true
+	end
+end
+local function onInputEnd(input, _gameProcessed)
+	if input.KeyCode == Enum.KeyCode.LeftShift   then
+		States.IsRunning = false
+	end
+end
+UserInputService.InputBegan:Connect(onInputBegan)
+UserInputService.InputEnded:Connect(onInputEnd)
+
+function GetFlashlight()
+	local Tool = plr.Character:FindFirstChild("Flashlight") or plr.Backpack:FindFirstChild("Flashlight")
+	return Tool.Handle.Flashlight.Light
+end
+--Flashlightmods
+FlashlightMods:CreateSlider("Brightness", 1, 50, 15, false, function(value)
+	GetFlashlight().Light1.Brightness = value
+end)
+FlashlightMods:CreateSlider("Range", 1, 60, 15, false, function(value)
+	GetFlashlight().Light1.Range = value
+end)
+FlashlightMods:CreateColorPicker("Color", Color3.new(255, 255, 255), function(value)
+	GetFlashlight().Light1.Color = value
+end)
