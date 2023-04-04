@@ -1,0 +1,63 @@
+local UiLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/H17S32/UiLib/main/Reptorv1'))()
+
+local plr = game:GetService("Players").LocalPlayer
+local FindPlayer = function(h,h2)
+	h = h:gsub("%s+", "")
+	for m, n in pairs(game:GetService("Players"):GetPlayers()) do
+		if n.Name:lower():match("^" .. h:lower()) or n.DisplayName:lower():match("^" .. h:lower()) then
+			return n
+		end
+	end
+	return nil
+end
+local Combat = UiLib.CreatePop("Combat")
+local States = {
+	SlapAura = false,
+	AntiSlap = false,
+	Speed = nil,
+	JumpPower = nil,
+}
+Combat.CreateToggle("Slap Aura",function(a)
+	States.SlapAura = a
+end)
+local Movement = UiLib.CreatePop("Movement")
+Movement.CreateSlider("Speed",function(a)
+	States.Speed = tonumber(a)
+end,16,200)
+Movement.CreateSlider("JumpPower",function(a)
+	States.JumpPower = tonumber(a)
+end,16,200)
+local Players = UiLib.CreatePop("Players")
+Players.CreateSlider("Hitbox size",function(a)
+	States.HitBox = tonumber(a)
+end,5,200)
+task.spawn(function()
+	while wait(1) do
+		spoof(plr.Character:FindFirstChildOfClass("Humanoid"),"WalkSpeed",16)
+		spoof(plr.Character:FindFirstChildOfClass("Humanoid"),"JumpPower",50)
+	end
+end)
+while wait() do
+	if States.SlapAura then
+		for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+			task.wait()
+			pcall(function()
+				if v and v.Character and (plr.Character:GetPrimaryPartCFrame().Position-v.Character:GetPrimaryPartCFrame().Position).Magnitude <23 then
+					coroutine.wrap(function()
+						game:GetService("ReplicatedStorage").b:FireServer(v.Character:FindFirstChildOfClass("Part"))
+					end)()
+				end
+				if States.HitBox then
+					v.Character:FindFirstChild("HumanoidRootPart").Size = Vector3.new(States.HitBox,States.HitBox,States.HitBox)
+					v.Character:FindFirstChild("HumanoidRootPart").Transparency = .5
+				end
+			end)
+		end
+	end
+	if States.Speed ~= nil then
+		plr.Character:FindFirstChildOfClass("Humanoid").WalkSpeed = States.Speed
+	end
+	if States.JumpPower ~= nil then
+		plr.Character:FindFirstChildOfClass("Humanoid").JumpPower = States.JumpPower
+	end
+end
