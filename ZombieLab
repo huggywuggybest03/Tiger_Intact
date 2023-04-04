@@ -1,0 +1,561 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
+local GameGUI = Library:NewWindow("Game")
+local plr = game:GetService("Players").LocalPlayer
+local Game_ = GameGUI:NewSection("Main")
+local Items = GameGUI:NewSection("Items")
+local states = {
+	getcure = false,
+	getvirus = false,
+	killall = false,
+	HumanOnlyD = false,
+	m1 = false,
+	m2 = false,
+	m3 = false,
+	m4 = false,
+}
+local Normal2 = {
+	Auto = false, 
+	MuzzleOffset = Vector3.new(0, -1, 0.5), 
+	BaseDamage = 10, 
+	FireRate = 0.2, 
+	ReloadTime = 2, 
+	AmmoPerClip = math.huge, 
+	Spread = 0, 
+	HeadshotEnabled = true, 
+	HeadshotDamageMultiplier = 1.5, 
+	MouseIconID = "409468479", 
+	HitSoundIDs = { 0 }, 
+	IdleAnimationID = 8473986959, 
+	IdleAnimationSpeed = 1, 
+	FireAnimationID = 8473981121, 
+	FireAnimationSpeed = 1, 
+	ReloadAnimationID = 8473989076, 
+	ReloadAnimationSpeed = 1, 
+	LimitedClipEnabled = false, 
+	Clips = 100000, 
+	MaxClip = 100000, 
+	ShotgunEnabled = false, 
+	BulletPerShot = 8, 
+	ShotgunReload = false, 
+	ShotgunClipinAnimationID = nil, 
+	ShotgunClipinAnimationSpeed = 1, 
+	ShellClipinSpeed = 0.5, 
+	BurstFireEnabled = false, 
+	BulletPerBurst = 3, 
+	BurstRate = 0.075, 
+	SniperEnabled = false, 
+}
+local Normal = {
+	FieldOfView = 60, 
+	MouseSensitive = 0.05, 
+	SpreadRedution = 3, 
+	CameraShakingEnabled = true, 
+	Intensity = 0.25, 
+	ExplosiveEnabled = false, 
+	Radius = 8, 
+	VisualizerEnabled = true, 
+	BulletSpeed = 25, 
+	BulletSize = Vector3.new(50,50,50), 
+	BulletColor = BrickColor.new("Bright yellow"), 
+	BulletTransparency = 0, 
+	BulletMaterial = Enum.Material.Neon, 
+	FadeTime = 1, 
+	ChargedShotEnabled = true, 
+	ChargingTime = 0, 
+	MinigunEnabled = false, 
+	DelayBeforeFiring = 1, 
+	DelayAfterFiring = 1, 
+	Knockback = 2, 
+	Lifesteal = 0, 
+	FlamingBullet = false, 
+	DualEnabled = false, 
+	Piercing = 0
+};
+function KillAll()
+	for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+		pcall(function()
+			local ohInstance1 = v.Character.Humanoid
+			local ohInstance2 = v.Character.HumanoidRootPart --[[ PARENTED TO NIL OR DESTROYED ]]
+			local ohNumber3 = 100
+			local ohVector34 = Vector3.new(0,0,0)
+			local ohNumber5 = 2
+			local ohNumber6 = 0
+			local ohBoolean7 = false
+			coroutine.wrap(function()
+				game:GetService("Players").LocalPlayer.Backpack.Pistol.GunScript_Server.InflictTarget:FireServer(ohInstance1, ohInstance2, ohNumber3, ohVector34, ohNumber5, ohNumber6, ohBoolean7)
+			end)()
+		end)
+		wait()
+	end
+end
+do
+	Items:CreateToggle("Get cure", function(value)
+		states.getcure = value
+	end)
+	Items:CreateToggle("Get virus", function(value)
+		states.getvirus = value
+	end)
+	Game_:CreateToggle("Kill zombies", function(value)
+		states.killall = value
+		if states.killall == true then
+			KillAll()
+			repeat wait(3)
+				KillAll()
+			until states.killall == false
+		end
+	end)
+	Game_:CreateToggle("Bypass human door", function(value)
+		states.HumanOnlyD = value
+		if value then
+			game:GetService("Workspace").HumanOnlyDoor.Transparency = .85
+			game:GetService("Workspace").HumanOnlyDoor.CanCollide = false
+			repeat task.wait()
+				if game:GetService("Workspace").HumanOnlyDoor.CanCollide == true then
+					game:GetService("Workspace").HumanOnlyDoor.CanCollide = false
+				end
+			until states.HumanOnlyD == false
+		else
+			game:GetService("Workspace").HumanOnlyDoor.Transparency = .5
+			game:GetService("Workspace").HumanOnlyDoor.CanCollide = true
+		end
+	end)
+end
+function Uneq()
+	plr.Character:FindFirstChildOfClass("Humanoid"):UnequipTools()
+	wait(.5)
+end
+local Gmods = Library:NewWindow("Gun mods")
+local Game_2 = Gmods:NewSection("Gun mods 1")
+local Game_3 = Gmods:NewSection("Gun mods 2")
+local Prebumod = Gmods:NewSection("Prebuilt mods")
+Prebumod:CreateToggle("Black shot", function(value)
+	pcall(function()
+		Uneq()
+		states.m1 = value
+		local r = require(game.Players.LocalPlayer.Backpack.Pistol.Setting)
+		r.Auto = true
+		r.MuzzleOffset = Vector3.new(0, -1, 0.5)
+		r.BaseDamage = 104444444
+		r.FireRate = 0
+		r.ReloadTime = 0
+		r.AmmoPerClip = 9994444444449999
+		r.Spread = 5
+		r.HeadshotEnabled = true
+		r.HeadshotDamageMultiplier = 1.5
+		r.MouseIconID = "409468479"
+		r.HitSoundIDs = { 0 }
+		r.IdleAnimationID = 8473986959
+		r.IdleAnimationSpeed = 1
+		r.FireAnimationID = 8473981121
+		r.FireAnimationSpeed = 1
+		r.ReloadAnimationID = 8473989076
+		r.ReloadAnimationSpeed = 1
+		r.LimitedClipEnabled = false
+		r.Clips = 10
+		r.MaxClip = 144444440
+		r.ShotgunEnabled = false
+		r.BulletPerShot = 800
+		r.ShotgunReload = false
+		r.ShotgunClipinAnimationID = nil
+		r.ShotgunClipinAnimationSpeed = 1
+		r.ShellClipinSpeed = 0.5
+		r.BurstFireEnabled = false
+		r.BulletPerBurst = 3
+		r.BurstRate = 0.075
+		r.SniperEnabled = false
+		r.FieldOfView = 60
+		r.MouseSensitive = 0.05
+		r.SpreadRedution = 3
+		r.CameraShakingEnabled = false
+		r.Intensity = 0.25
+		r.ExplosiveEnabled = false
+		r.Radius = 8
+		r.VisualizerEnabled = true
+		r.BulletSpeed = 0.0000001
+		r.BulletSize = Vector3.new(3100,1300,1300)
+		r.BulletColor = BrickColor.new("Really black")
+		r.BulletTransparency = 0
+		r.BulletMaterial = Enum.Material.Neon
+		r.FadeTime = 0
+		r.ChargedShotEnabled = true
+		r.ChargingTime = 0
+		r.MinigunEnabled = false
+		r.DelayBeforeFiring = 1
+		r.DelayAfterFiring = 1
+		r.Knockback = 2132
+		r.Lifesteal = 0
+		r.FlamingBullet = false
+		r.DualEnabled = false
+		r.Piercing = 0
+	end)
+end)
+Prebumod:CreateToggle("Magma shot", function(value)
+	pcall(function()
+		Uneq()
+		states.m2 = value
+		local r = require(game.Players.LocalPlayer.Backpack.Pistol.Setting)
+		r.Auto = true
+		r.MuzzleOffset = Vector3.new(0, -1, 0.5)
+		r.BaseDamage = 104444444
+		r.FireRate = 0
+		r.ReloadTime = 0
+		r.AmmoPerClip = 9994444444449999
+		r.Spread = 5
+		r.HeadshotEnabled = true
+		r.HeadshotDamageMultiplier = 1.5
+		r.MouseIconID = "409468479"
+		r.HitSoundIDs = { 0 }
+		r.IdleAnimationID = 8473986959
+		r.IdleAnimationSpeed = 1
+		r.FireAnimationID = 8473981121
+		r.FireAnimationSpeed = 1
+		r.ReloadAnimationID = 8473989076
+		r.ReloadAnimationSpeed = 1
+		r.LimitedClipEnabled = false
+		r.Clips = 10
+		r.MaxClip = 144444440
+		r.ShotgunEnabled = false
+		r.BulletPerShot = 800
+		r.ShotgunReload = false
+		r.ShotgunClipinAnimationID = nil
+		r.ShotgunClipinAnimationSpeed = 1
+		r.ShellClipinSpeed = 0.5
+		r.BurstFireEnabled = false
+		r.BulletPerBurst = 3
+		r.BurstRate = 0.075
+		r.SniperEnabled = false
+		r.FieldOfView = 60
+		r.MouseSensitive = 0.05
+		r.SpreadRedution = 3
+		r.CameraShakingEnabled = false
+		r.Intensity = 0.25
+		r.ExplosiveEnabled = false
+		r.Radius = 8
+		r.VisualizerEnabled = true
+		r.BulletSpeed = 0.0000001
+		r.BulletSize = Vector3.new(3100,1300,1300)
+		r.BulletColor = BrickColor.new("Really red")
+		r.BulletTransparency = 0
+		r.BulletMaterial = Enum.Material.CrackedLava
+		r.FadeTime = 0
+		r.ChargedShotEnabled = true
+		r.ChargingTime = 0
+		r.MinigunEnabled = false
+		r.DelayBeforeFiring = 1
+		r.DelayAfterFiring = 1
+		r.Knockback = 2132
+		r.Lifesteal = 0
+		r.FlamingBullet = false
+		r.DualEnabled = false
+		r.Piercing = 0
+	end)
+end)
+Prebumod:CreateToggle("Super shotgun", function(value)
+	pcall(function()
+		Uneq()
+		wait()
+		states.m3 = value
+		local r = require(game.Players.LocalPlayer.Backpack.Pistol.Setting)
+		r.Auto = true
+		r.MuzzleOffset = Vector3.new(0, -1, 0.5)
+		r.BaseDamage = 104444444
+		r.FireRate = 0
+		r.ReloadTime = 0
+		r.AmmoPerClip = 9994444444449999
+		r.Spread = 5
+		r.HeadshotEnabled = true
+		r.HeadshotDamageMultiplier = 1.5
+		r.MouseIconID = "409468479"
+		r.HitSoundIDs = { 0 }
+		r.IdleAnimationID = 8473986959
+		r.IdleAnimationSpeed = 1
+		r.FireAnimationID = 8473981121
+		r.FireAnimationSpeed = 1
+		r.ReloadAnimationID = 8473989076
+		r.ReloadAnimationSpeed = 1
+		r.LimitedClipEnabled = false
+		r.Clips = 10
+		r.MaxClip = 144444440
+		r.ShotgunEnabled = false
+		r.BulletPerShot = 800
+		r.ShotgunReload = false
+		r.ShotgunClipinAnimationID = nil
+		r.ShotgunClipinAnimationSpeed = 1
+		r.ShellClipinSpeed = 0.5
+		r.BurstFireEnabled = false
+		r.BulletPerBurst = 3
+		r.BurstRate = 0.075
+		r.SniperEnabled = false
+		r.FieldOfView = 60
+		r.MouseSensitive = 0.05
+		r.SpreadRedution = 3
+		r.CameraShakingEnabled = false
+		r.Intensity = 0.25
+		r.ExplosiveEnabled = false
+		r.Radius = 8
+		r.VisualizerEnabled = true
+		r.BulletSpeed = 0.0000001
+		r.BulletSize = Vector3.new(1,1,1)
+		r.BulletColor = BrickColor.new("Really red")
+		r.BulletTransparency = 1
+		r.BulletMaterial = Enum.Material.CrackedLava
+		r.FadeTime = 0
+		r.ChargedShotEnabled = true
+		r.ChargingTime = 0
+		r.MinigunEnabled = false
+		r.DelayBeforeFiring = 1
+		r.DelayAfterFiring = 1
+		r.Knockback = 2132
+		r.Lifesteal = 0
+		r.FlamingBullet = false
+		r.DualEnabled = false
+		r.Piercing = 0
+	end)
+end)
+Prebumod:CreateToggle("Block", function(value)
+	pcall(function()
+		Uneq()
+		wait()
+		states.m4 = value
+		local r = require(game.Players.LocalPlayer.Backpack.Pistol.Setting)
+		r.Auto = true
+		r.MuzzleOffset = Vector3.new(0, -1, 0.5)
+		r.BaseDamage = 104444444
+		r.FireRate = 0
+		r.ReloadTime = 0
+		r.AmmoPerClip = 9994444444449999
+		r.Spread = 5
+		r.HeadshotEnabled = true
+		r.HeadshotDamageMultiplier = 1.5
+		r.MouseIconID = "409468479"
+		r.HitSoundIDs = { 0 }
+		r.IdleAnimationID = 8473986959
+		r.IdleAnimationSpeed = 1
+		r.FireAnimationID = 8473981121
+		r.FireAnimationSpeed = 1
+		r.ReloadAnimationID = 8473989076
+		r.ReloadAnimationSpeed = 1
+		r.LimitedClipEnabled = false
+		r.Clips = 10
+		r.MaxClip = 144444440
+		r.ShotgunEnabled = false
+		r.BulletPerShot = 800
+		r.ShotgunReload = false
+		r.ShotgunClipinAnimationID = nil
+		r.ShotgunClipinAnimationSpeed = 1
+		r.ShellClipinSpeed = 0.5
+		r.BurstFireEnabled = false
+		r.BulletPerBurst = 3
+		r.BurstRate = 0.075
+		r.SniperEnabled = false
+		r.FieldOfView = 60
+		r.MouseSensitive = 0.05
+		r.SpreadRedution = 3
+		r.CameraShakingEnabled = false
+		r.Intensity = 0.25
+		r.ExplosiveEnabled = false
+		r.Radius = 8
+		r.VisualizerEnabled = true
+		r.BulletSpeed = 0.0000001
+		r.BulletSize = Vector3.new(1,1,1)
+		r.BulletColor = BrickColor.new("Really red")
+		r.BulletTransparency = 0
+		r.BulletMaterial = Enum.Material.CrackedLava
+		r.FadeTime = 0
+		r.ChargedShotEnabled = true
+		r.ChargingTime = 0
+		r.MinigunEnabled = false
+		r.DelayBeforeFiring = 1
+		r.DelayAfterFiring = 1
+		r.Knockback = 2132
+		r.Lifesteal = 0
+		r.FlamingBullet = false
+		r.DualEnabled = false
+		r.Piercing = 0
+	end)
+end)
+Prebumod:CreateToggle("Water", function(value)
+	pcall(function()
+		Uneq()
+		wait()
+		states.m5 = value
+		local r = require(game.Players.LocalPlayer.Backpack.Pistol.Setting)
+		r.Auto = true
+		r.MuzzleOffset = Vector3.new(0, -1, 0.5)
+		r.BaseDamage = 104444444
+		r.FireRate = 0
+		r.ReloadTime = 0
+		r.AmmoPerClip = 9994444444449999
+		r.Spread = 5
+		r.HeadshotEnabled = true
+		r.HeadshotDamageMultiplier = 1.5
+		r.MouseIconID = "409468479"
+		r.HitSoundIDs = { 0 }
+		r.IdleAnimationID = 8473986959
+		r.IdleAnimationSpeed = 1
+		r.FireAnimationID = 8473981121
+		r.FireAnimationSpeed = 1
+		r.ReloadAnimationID = 8473989076
+		r.ReloadAnimationSpeed = 1
+		r.LimitedClipEnabled = false
+		r.Clips = 10
+		r.MaxClip = 144444440
+		r.ShotgunEnabled = false
+		r.BulletPerShot = 800
+		r.ShotgunReload = false
+		r.ShotgunClipinAnimationID = nil
+		r.ShotgunClipinAnimationSpeed = 1
+		r.ShellClipinSpeed = 0.5
+		r.BurstFireEnabled = false
+		r.BulletPerBurst = 3
+		r.BurstRate = 0.075
+		r.SniperEnabled = false
+		r.FieldOfView = 60
+		r.MouseSensitive = 0.05
+		r.SpreadRedution = 3
+		r.CameraShakingEnabled = false
+		r.Intensity = 0.25
+		r.ExplosiveEnabled = false
+		r.Radius = 8
+		r.VisualizerEnabled = true
+		r.BulletSpeed = 0.0000001
+		r.BulletSize = Vector3.new(3100,1300,1300)
+		r.BulletColor = BrickColor.new("Electric blue")
+		r.BulletTransparency = 0.5
+		r.BulletMaterial = Enum.Material.Sand
+		r.FadeTime = 0
+		r.ChargedShotEnabled = true
+		r.ChargingTime = 0
+		r.MinigunEnabled = false
+		r.DelayBeforeFiring = 1
+		r.DelayAfterFiring = 1
+		r.Knockback = 2132
+		r.Lifesteal = 0
+		r.FlamingBullet = false
+		r.DualEnabled = false
+		r.Piercing = 0
+	end)
+end)
+Prebumod:CreateToggle("Glass", function(value)
+	pcall(function()
+		Uneq()
+		wait()
+		states.m5 = value
+		local r = require(game.Players.LocalPlayer.Backpack.Pistol.Setting)
+		r.Auto = true
+		r.MuzzleOffset = Vector3.new(0, -1, 0.5)
+		r.BaseDamage = 104444444
+		r.FireRate = 0
+		r.ReloadTime = 0
+		r.AmmoPerClip = 9994444444449999
+		r.Spread = 5
+		r.HeadshotEnabled = true
+		r.HeadshotDamageMultiplier = 1.5
+		r.MouseIconID = "409468479"
+		r.HitSoundIDs = { 0 }
+		r.IdleAnimationID = 8473986959
+		r.IdleAnimationSpeed = 1
+		r.FireAnimationID = 8473981121
+		r.FireAnimationSpeed = 1
+		r.ReloadAnimationID = 8473989076
+		r.ReloadAnimationSpeed = 1
+		r.LimitedClipEnabled = false
+		r.Clips = 10
+		r.MaxClip = 144444440
+		r.ShotgunEnabled = false
+		r.BulletPerShot = 800
+		r.ShotgunReload = false
+		r.ShotgunClipinAnimationID = nil
+		r.ShotgunClipinAnimationSpeed = 1
+		r.ShellClipinSpeed = 0.5
+		r.BurstFireEnabled = false
+		r.BulletPerBurst = 3
+		r.BurstRate = 0.075
+		r.SniperEnabled = false
+		r.FieldOfView = 60
+		r.MouseSensitive = 0.05
+		r.SpreadRedution = 3
+		r.CameraShakingEnabled = false
+		r.Intensity = 0.25
+		r.ExplosiveEnabled = false
+		r.Radius = 8
+		r.VisualizerEnabled = true
+		r.BulletSpeed = 0.0000001
+		r.BulletSize = Vector3.new(3100,1300,1300)
+		r.BulletColor = BrickColor.new("Baby blue")
+		r.BulletTransparency = 0.7
+		r.BulletMaterial = Enum.Material.Glass
+		r.FadeTime = 0
+		r.ChargedShotEnabled = true
+		r.ChargingTime = 0
+		r.MinigunEnabled = false
+		r.DelayBeforeFiring = 1
+		r.DelayAfterFiring = 1
+		r.Knockback = 2132
+		r.Lifesteal = 0
+		r.FlamingBullet = false
+		r.DualEnabled = false
+		r.Piercing = 0
+	end)
+end)
+do
+	for i,v in pairs(Normal) do
+		if typeof(v):lower() == "boolean" then
+			Game_2:CreateToggle(tostring(i), function(value)
+				Normal[i] = not Normal[i]
+			end)
+		elseif typeof(v):lower() == "number" then
+			Game_2:CreateSlider(tostring(i), 0, 100, 15, false, function(value)
+				Normal[i] = value
+			end)
+		end
+	end
+	for i,v in pairs(Normal2) do
+		if typeof(v):lower() == "boolean" then
+			Game_3:CreateToggle(tostring(i), function(value)
+				Normal[i] = not Normal[i]
+			end)
+		elseif typeof(v):lower() == "number" then
+			Game_3:CreateSlider(tostring(i), 0, 100, 15, false, function(value)
+				Normal[i] = value
+			end)
+		end
+	end
+end
+
+while wait(2) do
+	pcall(function()
+		if plr.Character:FindFirstChild("Anti-Exploits") then
+			plr.Character:FindFirstChild("Anti-Exploits"):Destroy()
+		end
+		if plr.PlayerGui["PlayerLocalScripts(ReOnSp)"]:FindFirstChild("AntiWeaponZone") then
+			plr.PlayerGui["PlayerLocalScripts(ReOnSp)"]:FindFirstChild("AntiWeaponZone").Disabled = true
+		end
+		if plr.PlayerGui["PlayerLocalScripts(ReOnSp)"]:FindFirstChild("AntiWeaponZoneMover") then
+			plr.PlayerGui["PlayerLocalScripts(ReOnSp)"]:FindFirstChild("AntiWeaponZoneMover").Disabled = true
+		end
+		if states.getcure and not game:GetService("Players").LocalPlayer.Character:FindFirstChild("Cure") and not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Cure") then
+			game:GetService("ReplicatedStorage").Events.GiveCure:FireServer()
+		end
+		if states.getvirus and not game:GetService("Players").LocalPlayer.Character:FindFirstChild("Virus") and not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Virus") then
+			game:GetService("ReplicatedStorage").Events.GiveVirus:FireServer()
+		end
+		if not states.m1 and not states.m2 and not states.m3 and not states.m4 and not states.m5 then
+			for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
+				if v and v:FindFirstChildOfClass("ModuleScript") and v:FindFirstChild("Setting") then
+					for i2,v2 in pairs(Normal) do
+						require(v:FindFirstChild("Setting"))[i2]=v2
+					end
+				end
+			end
+			for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetChildren()) do
+				if v and v:FindFirstChildOfClass("ModuleScript") and v:FindFirstChild("Setting") then
+					for i2,v2 in pairs(Normal2) do
+
+						require(v:FindFirstChild("Setting"))[i2]=v2
+					end
+				end
+			end
+		end
+	end)
+end
