@@ -1,0 +1,212 @@
+local UiLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/H17S32/UiLib/main/Reptorv1'))()
+local plr = game:GetService("Players").LocalPlayer
+local FindPlayer = function(h,h2)
+	h = h:gsub("%s+", "")
+	for m, n in pairs(game:GetService("Players"):GetPlayers()) do
+		if n.Name:lower():match("^" .. h:lower()) or n.DisplayName:lower():match("^" .. h:lower()) then
+			return n
+		end
+	end
+	return nil
+end
+local a = UiLib.CreatePop("BlockTypes")
+local Button = a.CreateButton("Diamond block",function()
+	game:GetService("ReplicatedStorage").SpawnDiamondBlock:FireServer()
+end)
+local Button = a.CreateButton("Galaxy Block",function()
+	game:GetService("ReplicatedStorage").SpawnGalaxyBlock:FireServer()
+end)
+local Button = a.CreateButton("Lucky Block",function()
+	game:GetService("ReplicatedStorage").SpawnLuckyBlock:FireServer()
+end)
+local Button = a.CreateButton("Rainbow Block",function()
+	game:GetService("ReplicatedStorage").SpawnRainbowBlock:FireServer()
+end)
+local Button = a.CreateButton("Super Block",function()
+	game:GetService("ReplicatedStorage").SpawnSuperBlock:FireServer()
+end)
+local Players = UiLib.CreatePop("Players")
+local TextBox = Players.CreateTextBox("Player name")
+local Button = Players.CreateButton("Bring player",function()
+	local Player = FindPlayer(TextBox.Text)
+	if Player then
+		task.spawn(function()
+			game:GetService("ReplicatedStorage").SpawnDiamondBlock:FireServer()
+		end)
+		local a = Instance.new("BoolValue",plr.Character)
+		a.Name = "ISJ"
+		local S = plr.Character:GetPrimaryPartCFrame()
+		if not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character:FindFirstChildOfClass("Humanoid").Health <1 then
+			return
+		end
+		plr.Character:FindFirstChildOfClass("Humanoid"):Destroy()
+		Instance.new("Humanoid",plr.Character)
+		local Tool = plr.Backpack:FindFirstChildOfClass("Tool") or plr.Character:FindFirstChildOfClass("Tool") 
+		repeat task.wait() Tool = plr.Backpack:FindFirstChildOfClass("Tool") or plr.Character:FindFirstChildOfClass("Tool")  until Tool
+		Tool.Parent = plr.Character
+		repeat task.wait()
+			pcall(function()
+				task.spawn(function()
+					if Tool and Tool:FindFirstChild("Handle") then
+						Player.Character:SetPrimaryPartCFrame(Tool.Handle.CFrame)
+						if firetouchinterest then
+							firetouchinterest(Player.Character.Head,Tool.Handle,0)
+							firetouchinterest(Player.Character.Head,Tool.Handle,1)
+						end
+					end
+				end)
+			end)
+			plr.Character:SetPrimaryPartCFrame(S)
+		until not plr.Character:FindFirstChildOfClass("Humanoid") or not Player.Character:FindFirstChildOfClass("Humanoid") or Player.Character:FindFirstChildOfClass("Humanoid").Health <1 or Tool.Parent ~= plr.Character
+		task.spawn(function()
+			local b
+			b = plr.CharacterAdded:Connect(function(c)
+				c:WaitForChild("HumanoidRootPart")
+				for i =1,10 do
+					c:WaitForChild("HumanoidRootPart").CFrame = S
+					task.wait()
+				end
+				b:Disconnect()
+			end)
+		end)
+	end
+end)
+local Button = Players.CreateButton("Void player",function()
+	local Player = FindPlayer(TextBox.Text)
+	if Player then
+		task.spawn(function()
+			game:GetService("ReplicatedStorage").SpawnDiamondBlock:FireServer()
+		end)
+		local a = Instance.new("BoolValue",plr.Character)
+		a.Name = "ISJ"
+		local S = plr.Character:GetPrimaryPartCFrame()
+		if not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character:FindFirstChildOfClass("Humanoid").Health <1 then
+			return
+		end
+		plr.Character:FindFirstChildOfClass("Humanoid"):Destroy()
+		Instance.new("Humanoid",plr.Character)
+		local Tool = plr.Backpack:FindFirstChildOfClass("Tool") or plr.Character:FindFirstChildOfClass("Tool") 
+		repeat task.wait() Tool = plr.Backpack:FindFirstChildOfClass("Tool") or plr.Character:FindFirstChildOfClass("Tool")  until Tool
+		Tool.Parent = plr.Character
+		repeat task.wait()
+			pcall(function()
+				task.spawn(function()
+					if Tool and Tool:FindFirstChild("Handle") then
+						Player.Character:SetPrimaryPartCFrame(Tool.Handle.CFrame)
+						if firetouchinterest then
+							firetouchinterest(Player.Character.Head,Tool.Handle,0)
+							firetouchinterest(Player.Character.Head,Tool.Handle,1)
+						end
+					end
+				end)
+			end)
+			plr.Character:SetPrimaryPartCFrame(CFrame.new(9999999999999999999,999999999999999999999999999999,-109999999999999999900))
+		until not plr.Character:FindFirstChildOfClass("Humanoid") or not Player.Character:FindFirstChildOfClass("Humanoid") or Player.Character:FindFirstChildOfClass("Humanoid").Health <1 or Tool.Parent ~= plr.Character
+		task.spawn(function()
+			local b
+			b = plr.CharacterAdded:Connect(function(c)
+				c:WaitForChild("HumanoidRootPart")
+				for i =1,10 do
+					c:WaitForChild("HumanoidRootPart").CFrame = S
+					task.wait()
+				end
+				b:Disconnect()
+			end)
+		end)
+	end
+end)
+local Button = Players.CreateButton("Kill player",function()
+	local Player = FindPlayer(TextBox.Text)
+	if Player then
+		task.spawn(function()
+			game:GetService("ReplicatedStorage").SpawnDiamondBlock:FireServer()
+		end)
+		local a = Instance.new("BoolValue",plr.Character)
+		a.Name = "ISJ"
+		local S = plr.Character:GetPrimaryPartCFrame()
+		if not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character:FindFirstChildOfClass("Humanoid").Health <1 then
+			return
+		end
+		plr.Character:FindFirstChildOfClass("Humanoid"):Destroy()
+		Instance.new("Humanoid",plr.Character)
+		local Tool = plr.Backpack:FindFirstChildOfClass("Tool") or plr.Character:FindFirstChildOfClass("Tool") 
+		repeat task.wait() Tool = plr.Backpack:FindFirstChildOfClass("Tool") or plr.Character:FindFirstChildOfClass("Tool")  until Tool
+		Tool.Parent = plr.Character
+		repeat task.wait()
+			pcall(function()
+				task.spawn(function()
+					if Tool and Tool:FindFirstChild("Handle") then
+						Player.Character:SetPrimaryPartCFrame(Tool.Handle.CFrame)
+						if firetouchinterest then
+							firetouchinterest(Player.Character.Head,Tool.Handle,0)
+							firetouchinterest(Player.Character.Head,Tool.Handle,1)
+						end
+					end
+				end)
+			end)
+			plr.Character:SetPrimaryPartCFrame(CFrame.new(10000,workspace.FallenPartsDestroyHeight+4.5,-1000))
+		until not plr.Character:FindFirstChildOfClass("Humanoid") or not Player.Character:FindFirstChildOfClass("Humanoid") or Player.Character:FindFirstChildOfClass("Humanoid").Health <1 or Tool.Parent ~= plr.Character
+		task.spawn(function()
+			local b
+			b = plr.CharacterAdded:Connect(function(c)
+				c:WaitForChild("HumanoidRootPart")
+				for i =1,10 do
+					c:WaitForChild("HumanoidRootPart").CFrame = S
+					task.wait()
+				end
+				b:Disconnect()
+			end)
+		end)
+	end
+end)
+local c = UiLib.CreatePop("Items")
+local Button = c.CreateButton("Every block",function()
+	for i =1,40 do
+		task.spawn(function()
+			game:GetService("ReplicatedStorage").SpawnDiamondBlock:FireServer()
+		end)
+	end
+	for i = 1,40 do
+		task.spawn(function()
+			game:GetService("ReplicatedStorage").SpawnGalaxyBlock:FireServer()
+		end)
+	end
+	for i =1,40 do
+		task.spawn(function()
+			game:GetService("ReplicatedStorage").SpawnLuckyBlock:FireServer()
+		end)
+	end
+	for i =1, 40 do
+		task.spawn(function()
+			game:GetService("ReplicatedStorage").SpawnRainbowBlock:FireServer()
+		end)
+	end
+	for i =1,40 do
+		task.spawn(function()
+			game:GetService("ReplicatedStorage").SpawnSuperBlock:FireServer()
+		end)
+	end
+end)
+local Button = c.CreateButton("Delete items",function()
+	for i,v in pairs(plr.Backpack:GetChildren()) do
+		if v and v:IsA("Tool") then
+			v.Parent = nil
+			v:Destroy()
+			game:GetService("RunService").RenderStepped:Wait()
+		end
+	end
+	for i,v in pairs(plr.Character:GetChildren()) do
+		if v and v:IsA("Tool") then
+			v:Destroy()
+			game:GetService("RunService").RenderStepped:Wait()
+		end
+	end
+end)
+local Button = c.CreateButton("Equip all",function()
+	for i,v in pairs(plr.Backpack:GetChildren()) do
+		if v and v:IsA("Tool") then
+			v.Parent = plr.Character
+			game:GetService("RunService").RenderStepped:Wait()
+		end
+	end
+end)
