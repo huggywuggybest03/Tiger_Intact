@@ -16,6 +16,7 @@ local States = {
 	AntiSlap = false,
 	Speed = nil,
 	JumpPower = nil,
+	AntiFall = false
 }
 Combat.CreateToggle("Slap Aura",function(a)
 	States.SlapAura = a
@@ -31,13 +32,9 @@ local Players = UiLib.CreatePop("Players")
 Players.CreateSlider("Hitbox size",function(a)
 	States.HitBox = tonumber(a)
 end,5,200)
-task.spawn(function()
-	while wait(1) do
-		spoof(plr.Character:FindFirstChildOfClass("Humanoid"),"WalkSpeed",16)
-		spoof(plr.Character:FindFirstChildOfClass("Humanoid"),"JumpPower",50)
-	end
-end)
+
 while wait() do
+	plr.PlayerScripts.WSC.Disabled = true
 	if States.SlapAura then
 		for i,v in pairs(game:GetService("Players"):GetPlayers()) do
 			task.wait()
