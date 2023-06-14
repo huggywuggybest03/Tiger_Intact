@@ -39,7 +39,7 @@ Other.CreateSlider("FOV",function(a)
 	workspace.CurrentCamera.FieldOfView = a
 end,1,150)
 Other.CreateSlider("Gravity",function(a)
-	workspace.Gravity.FieldOfView = a
+	workspace.Gravity = a
 end,1,1000)
 Farmm = true
 function Tween(Obj,Prop,New,Time)
